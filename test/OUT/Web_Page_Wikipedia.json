@@ -1,0 +1,104 @@
+{
+  "responses": [
+    {
+      "labelAnnotations": [
+        {
+          "mid": "/m/01jwgf",
+          "description": "Product",
+          "score": 0.9073279,
+          "topicality": 0.9073279
+        },
+        {
+          "mid": "/m/03jn2m",
+          "description": "Azure",
+          "score": 0.89516413,
+          "topicality": 0.89516413
+        },
+        {
+          "mid": "/m/03gq5hm",
+          "description": "Font",
+          "score": 0.8443329,
+          "topicality": 0.8443329
+        },
+        {
+          "mid": "/m/01zbnw",
+          "description": "Screenshot",
+          "score": 0.7796669,
+          "topicality": 0.7796669
+        },
+        {
+          "mid": "/m/030zfn",
+          "description": "Parallel",
+          "score": 0.7486054,
+          "topicality": 0.7486054
+        },
+        {
+          "mid": "/m/01mf0",
+          "description": "Software",
+          "score": 0.7050381,
+          "topicality": 0.7050381
+        },
+        {
+          "mid": "/m/086nh",
+          "description": "Web page",
+          "score": 0.68418,
+          "topicality": 0.68418
+        },
+        {
+          "mid": "/m/05fwb",
+          "description": "Number",
+          "score": 0.6674706,
+          "topicality": 0.6674706
+        },
+        {
+          "mid": "/m/0541p",
+          "description": "Multimedia",
+          "score": 0.64411813,
+          "topicality": 0.64411813
+        },
+        {
+          "mid": "/m/015bv3",
+          "description": "Document",
+          "score": 0.62723696,
+          "topicality": 0.62723696
+        },
+        {
+          "mid": "/m/01r9v",
+          "description": "Computer program",
+          "score": 0.6041536,
+          "topicality": 0.6041536
+        },
+        {
+          "mid": "/m/06q83",
+          "description": "Software engineering",
+          "score": 0.5698891,
+          "topicality": 0.5698891
+        },
+        {
+          "mid": "/m/03qh03g",
+          "description": "Media",
+          "score": 0.56633776,
+          "topicality": 0.56633776
+        },
+        {
+          "mid": "/m/0j62f",
+          "description": "Rectangle",
+          "score": 0.5474022,
+          "topicality": 0.5474022
+        },
+        {
+          "mid": "/m/085n4",
+          "description": "Website",
+          "score": 0.53893626,
+          "topicality": 0.53893626
+        },
+        {
+          "mid": "/m/05khh",
+          "description": "Operating system",
+          "score": 0.5108647,
+          "topicality": 0.5108647
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+.review-card {
+  width: 300px; 
+  border: 1px solid grey; 
+  padding: 20px; 
+  margin: 20px;
+}
+
+.reviewer-name {
+  color: blue;
+  margin: 0;
+  font-size: 18px;
+}
+
+.review-date {
+  color: grey;
+  font-size: 12px;
+}
+
+.review-rating {
+  color: green;
+  font-size: 14px;
+}
+
+.review-message {
+  color: black;
+  font-size: 16px;
+}

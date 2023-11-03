@@ -1,0 +1,83 @@
+{
+  "responses": [
+    {
+      "imagePropertiesAnnotation": {
+        "dominantColors": {
+          "colors": [
+            {
+              "color": {
+                "red": 236,
+                "green": 236,
+                "blue": 239
+              },
+              "score": 0.7444411,
+              "pixelFraction": 0.92532754
+            },
+            {
+              "color": {
+                "red": 205,
+                "green": 205,
+                "blue": 208
+              },
+              "score": 0.2553798,
+              "pixelFraction": 0.07169842
+            },
+            {
+              "color": {
+                "red": 163,
+                "green": 163,
+                "blue": 163
+              },
+              "score": 0.00017914677,
+              "pixelFraction": 0.0019291054
+            },
+            {
+              "color": {
+                "red": 207,
+                "green": 209,
+                "blue": 228
+              },
+              "score": 9.2389915e-11,
+              "pixelFraction": 0.0008037939
+            },
+            {
+              "color": {
+                "red": 218,
+                "green": 217,
+                "blue": 237
+              },
+              "score": 6.5953305e-11,
+              "pixelFraction": 0.00024113817
+            }
+          ]
+        }
+      },
+      "cropHintsAnnotation": {
+        "cropHints": [
+          {
+            "boundingPoly": {
+              "vertices": [
+                {
+                  "x": 160
+                },
+                {
+                  "x": 646
+                },
+                {
+                  "x": 646,
+                  "y": 485
+                },
+                {
+                  "x": 160,
+                  "y": 485
+                }
+              ]
+            },
+            "confidence": 0.625,
+            "importanceFraction": 0.9257143
+          }
+        ]
+      }
+    }
+  ]
+}
