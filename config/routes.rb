@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   get '/test/aiImageTest/labels', to: 'ai#labels'
   get '/test/aiImageTest/colors', to: 'ai#colors'
   get '/test/PageGenerationTest', to: 'page_generation#generate_page'
-
+  post 'login', to: 'sessions#create'
+  post 'register', to: 'users#create'
+  delete '/logout', to: 'sessions#destroy'
   # Defines the root path route ("/")
   # root "posts#index"
 end

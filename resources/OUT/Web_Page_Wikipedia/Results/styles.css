@@ -1,24 +1,32 @@
 body {
-  background-color: white;
-  font-family: Arial, sans-serif;
-  color: black;
-  margin: 0;
-  padding: 0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
 }
 
-.review-block {
-  margin: 20px;
+.review {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
 }
 
-.description {
-  background-color: #eeeeee;
-  padding: 10px;
-  border-radius: 10px;
+.description, .dominantColor {
+    width: 45%;
+    padding: 20px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
 }
 
-.color-block {
-  background-color: #eeeeee;
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 10px;
+.description h2, .dominantColor h2 {
+    color: #000000;
+    margin-bottom: 15px;
+}
+
+#descriptionText {
+    color: #333333;
+}
+
+#colorText {
+    color: #006600;
 }

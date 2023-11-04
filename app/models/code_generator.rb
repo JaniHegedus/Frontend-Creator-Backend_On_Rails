@@ -8,7 +8,7 @@ class CodeGenerator
   def initialize(api_key, review_data="")
     @api_key = api_key
     @review_data = review_data
-    @code = {'html' => '', 'css' => ''}
+    @code = {'html' => '', 'css' => '', 'js' => ''}
     make_request
   end
 
@@ -60,8 +60,10 @@ class CodeGenerator
   def parse_generated_content(content)
     html_match = content.match(/```html\n(.+?)```/m)
     css_match = content.match(/```css\n(.+?)```/m)
+    js_match = content.match(/```js\n(.+?)```/m)
     @code['html'] = html_match ? html_match[1].strip : ''
     @code['css'] = css_match ? css_match[1].strip : ''
+    @code['js'] = js_match ? js_match[1].strip : ''
   end
   def save_generated_code(test = false, filename)
     filename_without_extension = File.basename(filename, ".*")
@@ -70,9 +72,11 @@ class CodeGenerator
 
     html_path = "#{dir_prefix}/#{filename_without_extension}/Results/output.html"
     css_path = "#{dir_prefix}/#{filename_without_extension}/Results/styles.css"
+    js_path = "#{dir_prefix}/#{filename_without_extension}/Results/script.js"
 
     FileWriter.new(html_path, @code['html'], "AiGenerator",type:"n").write_data_new
     FileWriter.new(css_path, @code['css'], "AiGenerator",type:"n").write_data_new
+    FileWriter.new(js_path, @code['js'], "AiGenerator",type:"n").write_data_new
     puts html_path+"\n"+css_path+" Paths"
     #puts "@code is: #{@code.inspect}"
   end
