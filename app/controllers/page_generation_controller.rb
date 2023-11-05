@@ -4,7 +4,8 @@ require_relative '../Components/config'
 
 class PageGenerationController < ApplicationController
   def initialize
-    @openai_api_key = Config.new(type: "openai").load
+
+    @openai_api_key = Rails.application.credentials.openai_api_key
     filename_without_extension = File.basename("resources/Images/Web_Page_Wikipedia.png", ".*")
     @output_path_labels = File.expand_path("resources/OUT/#{filename_without_extension}/labels.json")
     @output_path_texts = File.expand_path("resources/OUT/#{filename_without_extension}/texts.json")

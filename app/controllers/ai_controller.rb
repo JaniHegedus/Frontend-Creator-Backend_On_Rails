@@ -4,7 +4,8 @@ require_relative '../Components/config'
 
 class AiController < ApplicationController
   def initialize
-    @google_api_key = Config.new(type: "google").load
+    @google_api_key = Rails.application.credentials.google_api_key
+    puts @google_api_key
     filename_without_extension = File.basename("resources/Images/Web_Page_Wikipedia.png", ".*")
     @output_path = File.expand_path("resources/OUT/#{filename_without_extension}.json")
     @filepath = "resources/Images/Web_Page_Wikipedia.png"
