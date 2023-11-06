@@ -90,6 +90,11 @@ GEM
     drb (2.1.1)
       ruby2_keywords
     erubi (1.12.0)
+    faraday (2.7.11)
+      base64
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-net_http (3.0.2)
     ffi (1.16.3)
     ffi (1.16.3-x64-mingw-ucrt)
     globalid (1.2.1)
@@ -103,6 +108,7 @@ GEM
     irb (1.8.3)
       rdoc
       reline (>= 0.3.8)
+    jwt (2.7.1)
     loofah (2.21.4)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -206,9 +212,11 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
   debug
+  faraday
   image_processing (~> 1.2)
+  jwt
   puma (>= 5.0)
-  rack-cors
+  rack-cors (~> 2.0.1)
   rails (~> 7.1.1)
   sqlite3 (~> 1.4)
   tzinfo-data
