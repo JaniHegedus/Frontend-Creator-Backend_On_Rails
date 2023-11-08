@@ -1,6 +1,6 @@
 require_dependency 'jwt_service'
 class UsersController < ApplicationController
-  before_action :authenticate_request!, only: [:show, :userinfo]
+  before_action :authenticate_request!, only: [:show, :userinfo, :modify_userinfo]
   #skip_before_action :verify_authenticity_token, only: [:create], raise: false
   def show
     if @current_user.id == params[:id].to_i
@@ -21,34 +21,48 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       # For simplicity, we're not returning any authentication token here
+      UserMailer.welcome_email(user).deliver_later
       render json: { id: user.id, email: user.email }, status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
   end
+  def modify_userinfo
 
-  def github_create
-    # Find or create a user based on the GitHub data
-    github_user_info = get_github_user_info(params[:access_token])
-
-    user = User.find_or_initialize_by(github_id: github_user_info['id'])
-    user.update(
-      name: github_user_info['name'],
-    # Other fields you want to update...
-      )
-
-    if user.persisted?
-      render json: { token: user.generate_jwt }, status: :ok
+    # Update user information, password will be automatically hashed by has_secure_password
+    if @current_user.update(user_params)
+      render json: { message: 'User information updated successfully.' }, status: :ok
     else
-      render json: { error: 'Error message' }, status: :unprocessable_entity
+      render json: { errors: @current_user.errors.full_messages }, status: :unprocessable_entity
     end
   end
+  def reset_password
+    identifier = params[:login]
+    user = if identifier.include?('@')
+             User.find_by(email: identifier.downcase)
+           else
+             User.find_by(username: identifier)
+           end
 
+    if user
+      new_password = SecureRandom.hex(8) # Generates a 16-character hex string
+      user.password = new_password
+      user.password_confirmation = new_password
+
+      if user.save
+        # Assuming UserMailer is set up to handle password reset emails
+        UserMailer.with(user: user, new_password: new_password).password_reset_email.deliver_later
+
+        render json: { message: 'A new password has been sent to your email address.' }, status: :ok
+      else
+        render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+      end
+    else
+      render json: { error: 'User not found.' }, status: :not_found
+    end
+  end
   private
 
-  def get_github_user_info(access_token)
-    # Moved
-  end
   def authenticate_request!
     header = request.headers['Authorization']
     header = header.split(' ').last if header

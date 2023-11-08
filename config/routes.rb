@@ -19,12 +19,6 @@ Rails.application.routes.draw do
   # Sessions
   post 'login', to: 'sessions#create'
 
-  # Start the GitHub OAuth process
-  get '/auth/github', to: 'github_oauth#start'
-
-  # GitHub OAuth callback
-  post '/auth/github/callback', to: 'github_callbacks#create'
-
   # Users
   post 'register', to: 'users#create'
 
@@ -33,7 +27,6 @@ Rails.application.routes.draw do
 
   # CSRF
   get '/csrf', to: 'csrf#token'
-  post '/refresh_token', to: 'tokens#refresh'
 
   # Logout
   delete '/logout', to: 'sessions#destroy'
@@ -42,5 +35,12 @@ Rails.application.routes.draw do
   get '/user/:id', to: 'users#show'
   get '/userinfo', to: 'users#userinfo'
   # Defines the root path route ("/")
+  put '/users/:id/userinfo', to: 'users#modify_userinfo'
+  patch '/users/:id/userinfo', to: 'users#modify_userinfo' # For partial updates
+  post '/reset-password', to: 'users#reset_password'
+  # Adding a route for GitHub-based user creation or updates
+  post '/auth/github/callback', to: 'github_callbacks#create'
+  post '/auth/github', to: 'github_callbacks#auth_github'
+  post '/auth/github/remove', to: 'github_callbacks#remove_github'
   # root "posts#index"
 end

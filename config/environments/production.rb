@@ -65,7 +65,16 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "frontend_creator_production"
 
   config.action_mailer.perform_caching = false
-
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              Rails.application.credentials.email[:address],
+    port:                 Rails.application.credentials.email[:port],
+    domain:               Rails.application.credentials.email[:domain],
+    user_name:            Rails.application.credentials.email[:user_name],
+    password:             Rails.application.credentials.email[:password],
+    authentication:       Rails.application.credentials.email[:authentication],
+    enable_starttls_auto: true
+  }
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false

@@ -4,7 +4,7 @@ require 'rack/cors'
 
 require_relative '../..app/Components/AI/ai_reviewer'
 require_relative '../../app/Components/AI/'
-require_relative '../../app/Components/config'
+require_relative '../../app/Components/fig'
 require_relative '../../app/Components/File/file_reader'
 require_relative '../controllers/creator-backend/app/controllers/ai_controller'
 

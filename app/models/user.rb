@@ -15,9 +15,10 @@ class User < ApplicationRecord
       user.email = github_info['email']
       # Set a random, secure password for the user
       user.password = SecureRandom.hex(10) # This will generate a random 20-character string
-      user.github_nickname = github_info['nickname'] # Make sure to capture any additional needed fields
+      user.github_nickname = github_info['login'] # Make sure to capture any additional needed fields
       # Set other attributes from github_info as needed
       user.save!
+      UserMailer.welcome_email(user).deliver_later
     end
 
     user
