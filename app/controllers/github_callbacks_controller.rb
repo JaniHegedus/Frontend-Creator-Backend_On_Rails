@@ -6,9 +6,10 @@ class GithubCallbacksController < ApplicationController
     # Exchange the code for a GitHub access token
     access_token = request_to_github_for_token(params[:code])
     github_user_info = get_github_user_info(access_token)
+    github_repos = get_github_repositories(access_token)
 
     # Find or create a user from the GitHub data
-    user = User.find_or_create_from_github(github_user_info)
+    user = User.find_or_create_from_github(github_user_info,github_repos)
 
     if user.persisted?
       # Start session or sign-in user with Devise (if used)
@@ -33,8 +34,12 @@ class GithubCallbacksController < ApplicationController
     access_token = request_to_github_for_token(params[:code])
     return render json: { error: 'Error retrieving GitHub access token.' }, status: :bad_request unless access_token
 
+    #Get Userinfo
     github_user_info = get_github_user_info(access_token)
     return render json: { error: 'Error retrieving GitHub user info.' }, status: :bad_request unless github_user_info
+    #Get Repos
+    github_repos = get_github_repositories(access_token)
+    return render json: { error: 'Error retrieving GitHub repos.' }, status: :bad_request unless github_repos
 
     # Check if the GitHub ID is already linked to another user
     existing_user_with_github = User.find_by(github_uid: github_user_info['id'])
@@ -43,9 +48,9 @@ class GithubCallbacksController < ApplicationController
     end
 
     # Update the user with GitHub info
-    if user.update(github_uid: github_user_info['id'], github_nickname: github_user_info['login'])
+    if user.update(github_uid: github_user_info['id'], github_nickname: github_user_info['login'], github_repos: github_repos)
       # Handle successful update, perhaps return the updated user info
-      render json: { message: 'GitHub information updated successfully.' }, status: :ok
+      render json: { message: 'GitHub information updated successfully.'}, status: :ok
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
@@ -55,15 +60,34 @@ class GithubCallbacksController < ApplicationController
     user = User.find_by(email: params[:email]) # or however you access the current user
     return render json: { error: 'User not found.' }, status: :not_found unless user
     # Update the user with GitHub info
-    if user.update(github_uid: nil, github_nickname: nil)
+    if user.update(github_uid: nil, github_nickname: nil, github_repos: nil)
       # Handle successful update, perhaps return the updated user info
       render json: { message: 'GitHub information removed successfully.' }, status: :ok
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
   end
+
   private
 
+  def get_github_repositories(access_token)
+    response = Faraday.get('https://api.github.com/user/repos', {}, {
+      'Authorization' => "token #{access_token}",
+      'Accept' => 'application/json'
+    })
+
+    case response.status
+    when 200
+      # Success
+      JSON.parse(response.body)
+    when 401
+      # Unauthorized, token is invalid or expired
+      { error: 'GitHub token is invalid or expired.', status: :unauthorized }
+    else
+      # Other errors, you could handle more cases if needed
+      { error: 'Error retrieving GitHub repositories.', status: :bad_request }
+    end
+  end
   def request_to_github_for_token(code)
     client_id = Rails.application.credentials.github[:client_id]
     client_secret = Rails.application.credentials.github[:client_secret]

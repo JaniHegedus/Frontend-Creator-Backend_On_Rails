@@ -35,8 +35,8 @@ Rails.application.routes.draw do
   get '/user/:id', to: 'users#show'
   get '/userinfo', to: 'users#userinfo'
   # Defines the root path route ("/")
-  put '/users/:id/userinfo', to: 'users#modify_userinfo'
-  patch '/users/:id/userinfo', to: 'users#modify_userinfo' # For partial updates
+  patch '/user/modify', to: 'users#modify_userinfo' # For partial updates
+  delete '/user/delete', to: 'users#destroy'
   post '/reset-password', to: 'users#reset_password'
   # Adding a route for GitHub-based user creation or updates
   post '/auth/github/callback', to: 'github_callbacks#create'

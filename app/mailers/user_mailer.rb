@@ -8,10 +8,10 @@ class UserMailer < ApplicationMailer
 
     mail(to: @user.email, subject: 'Your new password')
   end
-  def welcome_email(user)
-    @user = user
+  def welcome_email
+    @user = params[:user]
     @url  = 'http://Frontend-Creator.com/login'
-    mail(to: @user.email, subject: 'Welcome to My Awesome Site')
+    mail(to: @user.email, subject: 'Welcome to Frontend Creator')
   end
 end
 

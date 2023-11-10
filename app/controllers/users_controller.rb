@@ -1,6 +1,7 @@
 require_dependency 'jwt_service'
 class UsersController < ApplicationController
-  before_action :authenticate_request!, only: [:show, :userinfo, :modify_userinfo]
+  before_action :authenticate_request!
+  skip_before_action :authenticate_request! , only: [:create,:reset_password]
   #skip_before_action :verify_authenticity_token, only: [:create], raise: false
   def show
     if @current_user.id == params[:id].to_i
@@ -21,7 +22,7 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       # For simplicity, we're not returning any authentication token here
-      UserMailer.welcome_email(user).deliver_later
+      UserMailer.with(user: user).welcome_email.deliver_later
       render json: { id: user.id, email: user.email }, status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
@@ -61,6 +62,21 @@ class UsersController < ApplicationController
       render json: { error: 'User not found.' }, status: :not_found
     end
   end
+  def destroy
+    if current_user
+      if current_user.destroy
+        # Sign out the user after deletion to clear the session
+        # This is necessary if you are using something like Devise for authentication
+        render json: { message: 'User deleted successfully.',logged_out: true }, status: :ok
+      else
+        # If the user can't be deleted due to some validation failures or callbacks.
+        render json: { error: 'User could not be deleted.' }, status: :unprocessable_entity
+      end
+    else
+      render json: { error: 'User not found.' }, status: :not_found
+    end
+  end
+
   private
 
   def authenticate_request!
