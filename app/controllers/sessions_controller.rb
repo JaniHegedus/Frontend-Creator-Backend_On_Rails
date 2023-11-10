@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     if user&.authenticate(params[:password])
       # Encode the user information into a JWT
       token = encode_user_information(user)
-      render json: { token: token, user_id: user.id, username: user.username, email: user.email }, status: :created
+      render json: { token: token, user_id: user.id, username: user.username, email: user.email, github_uid: user.github_uid, github_nickname: user.github_nickname, github_repos: user.github_repos }, status: :created
     else
       render json: { error: 'Invalid credentials' }, status: :unauthorized
     end
