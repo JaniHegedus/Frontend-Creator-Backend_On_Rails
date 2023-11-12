@@ -1,32 +1,21 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
-}
-
-.review {
     display: flex;
-    justify-content: space-between;
-    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    font-family: Arial,Helvetica,sans-serif;
 }
-
-.description, .dominantColor {
-    width: 45%;
-    padding: 20px;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
+#review-section {
+    text-align: center;
+    padding: 15px;
+    background: #fff;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
 }
-
-.description h2, .dominantColor h2 {
-    color: #000000;
-    margin-bottom: 15px;
+.review-card {
+    margin-top: 15px;
 }
-
-#descriptionText {
-    color: #333333;
-}
-
-#colorText {
-    color: #006600;
+.dominant-color {
+    color: #yourDominantColor;
 }
