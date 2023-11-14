@@ -39,12 +39,12 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.gmail.com',
-    port:                 587,
-    domain:               'frontend-creator.com',
-    user_name:            '',
-    password:             '',
-    authentication:       'plain',
+    address:              Rails.application.credentials.emailtest[:address],
+    port:                 Rails.application.credentials.emailtest[:port],
+    domain:               Rails.application.credentials.emailtest[:domain],
+    user_name:            Rails.application.credentials.emailtest[:user_name],
+    password:             Rails.application.credentials.emailtest[:password],
+    authentication:       Rails.application.credentials.emailtest[:authentication],
     enable_starttls_auto: true
   }
   # Print deprecation notices to the Rails logger.

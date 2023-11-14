@@ -1,7 +1,7 @@
 require_dependency 'jwt_service'
 class UsersController < ApplicationController
   before_action :authenticate_request!
-  skip_before_action :authenticate_request! , only: [:create,:reset_password]
+  skip_before_action :authenticate_request! , only: [:create,:reset_password, :welcome_email]
   #skip_before_action :verify_authenticity_token, only: [:create], raise: false
   def show
     if @current_user.id == params[:id].to_i
@@ -74,6 +74,12 @@ class UsersController < ApplicationController
       end
     else
       render json: { error: 'User not found.' }, status: :not_found
+    end
+  end
+
+  def welcome_email
+    if current_user
+      UserMailer.with(@current_user).welcome_email.deliver_later
     end
   end
 

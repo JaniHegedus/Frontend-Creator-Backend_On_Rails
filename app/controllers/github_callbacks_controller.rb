@@ -18,7 +18,7 @@ class GithubCallbacksController < ApplicationController
       jwt = JwtService.encode(user_id: user.id)
 
       # Send the JWT and user info back to the client
-      render json: { token: jwt, user_id: user.id, username: user.username, email: user.email }, status: :ok
+      render json: { token: jwt, user_id: user.id, username: user.username, email: user.email, github_repos: user.github_repos, github_uid: user.github_uid, github_nickname: user.github_nickname }, status: :ok
     else
       # Handle the situation where the user could not be found or created
       render json: { error: 'Could not authenticate with GitHub.' }, status: :unprocessable_entity
