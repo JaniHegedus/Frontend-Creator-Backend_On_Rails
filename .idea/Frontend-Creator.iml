@@ -41,6 +41,7 @@
     <orderEntry type="library" scope="PROVIDED" name="activerecord (v7.1.1, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="activestorage (v7.1.1, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="activesupport (v7.1.1, ruby-3.2.2-p53) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="base64 (v0.1.1, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bcrypt (v3.1.19, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bigdecimal (v3.1.4, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bootsnap (v1.17.0, ruby-3.2.2-p53) [gem]" level="application" />
@@ -89,6 +90,7 @@
     <orderEntry type="library" scope="PROVIDED" name="rdoc (v6.5.0, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="reline (v0.3.9, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ruby-vips (v2.2.0, ruby-3.2.2-p53) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="ruby2_keywords (v0.0.5, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="sqlite3 (v1.6.8, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="stringio (v3.0.8, ruby-3.2.2-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v1.3.0, ruby-3.2.2-p53) [gem]" level="application" />
@@ -182,104 +184,104 @@
   </component>
   <component name="RailsPaths" isManagedAutomatically="true">
     <entry key="app">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\app</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\app</value>
     </entry>
     <entry key="app/assets">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\app/assets</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\app/assets</value>
     </entry>
     <entry key="app/channels">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\app/channels</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\app/channels</value>
     </entry>
     <entry key="app/controllers">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\app/controllers</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\app/controllers</value>
     </entry>
     <entry key="app/helpers">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\app/helpers</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\app/helpers</value>
     </entry>
     <entry key="app/mailers">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\app/mailers</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\app/mailers</value>
     </entry>
     <entry key="app/models">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\app/models</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\app/models</value>
     </entry>
     <entry key="app/views">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\app/views</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\app/views</value>
     </entry>
     <entry key="config">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\config</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\config</value>
     </entry>
     <entry key="config/cable">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\config/cable.yml</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\config/cable.yml</value>
     </entry>
     <entry key="config/database">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\config/database.yml</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\config/database.yml</value>
     </entry>
     <entry key="config/environment">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\config/environment.rb</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\config/environment.rb</value>
     </entry>
     <entry key="config/environments">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\config/environments</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\config/environments</value>
     </entry>
     <entry key="config/initializers">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\config/initializers</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\config/initializers</value>
     </entry>
     <entry key="config/locales">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\config/locales</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\config/locales</value>
     </entry>
     <entry key="config/routes">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\config/routes</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\config/routes</value>
     </entry>
     <entry key="config/routes.rb">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\config/routes.rb</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\config/routes.rb</value>
     </entry>
     <entry key="config/secrets">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\config</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\config</value>
     </entry>
     <entry key="db">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\db</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\db</value>
     </entry>
     <entry key="db/migrate">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\db/migrate</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\db/migrate</value>
     </entry>
     <entry key="db/seeds.rb">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\db/seeds.rb</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\db/seeds.rb</value>
     </entry>
     <entry key="lib">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\lib</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\lib</value>
     </entry>
     <entry key="lib/assets">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\lib/assets</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\lib/assets</value>
     </entry>
     <entry key="lib/tasks">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\lib/tasks</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\lib/tasks</value>
     </entry>
     <entry key="lib/templates">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\lib/templates</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\lib/templates</value>
     </entry>
     <entry key="log">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\log/development.log</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\log/development.log</value>
     </entry>
     <entry key="public">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\public</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\public</value>
     </entry>
     <entry key="public/javascripts">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\public/javascripts</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\public/javascripts</value>
     </entry>
     <entry key="public/stylesheets">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\public/stylesheets</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\public/stylesheets</value>
     </entry>
     <entry key="test/mailers/previews">
       <value>file://$MODULE_DIR$/test/mailers/previews</value>
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\test/mailers/previews</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\test/mailers/previews</value>
     </entry>
     <entry key="tmp">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\tmp</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\tmp</value>
     </entry>
     <entry key="vendor">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\vendor</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\vendor</value>
     </entry>
     <entry key="vendor/assets">
-      <value>file://$MODULE_DIR$/../Frontend-Creator-Backend_On_Rails\vendor/assets</value>
+      <value>file://$MODULE_DIR$/../Frontend-Creator\vendor/assets</value>
     </entry>
   </component>
   <component name="RakeTasksCache">

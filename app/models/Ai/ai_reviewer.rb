@@ -1,7 +1,7 @@
 require 'net/http'
 require 'json'
 
-require_relative '../Components/File/file_reader'
+require_relative '../Components/File/le/file_reader'
 require_relative '../Components/File/file_writer'
 require_relative '../Components/image_processor'
 
