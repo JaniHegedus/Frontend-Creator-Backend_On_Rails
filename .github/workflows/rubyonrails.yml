@@ -12,7 +12,7 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.2.2' # Specify your Ruby version here
+        ruby-version: '3.2.2' # Adjust to match your project's Ruby version
 
     - name: Install dependencies
       run: |
@@ -23,6 +23,8 @@ jobs:
       run: chmod +x bin/rails bin/rake
 
     - name: Set up database
+      env:
+        RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       run: |
         bin/rails db:setup
         bin/rails db:migrate
