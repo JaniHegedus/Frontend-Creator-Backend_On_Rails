@@ -2,8 +2,8 @@
 
 require 'minitest/autorun'
 
-require_relative '../app/Components/ts/image_processor'
-require_relative '../app/Components/AI/ai_reviewer'
+require_relative '../app/Components/image_processor'
+require_relative '../app/models/ai_reviewer'
 require_relative '../app/Components/config'
 class ReviewerTest < Minitest::Test
   def setup
