@@ -12,7 +12,7 @@ class ReviewerTest < Minitest::Test
       puts "Image path is not set!"
       return
     end
-    @google_key = Config.new(type: "google").load
+    @google_key = Rails.application.credentials.google_api_key
   end
 
   def teardown

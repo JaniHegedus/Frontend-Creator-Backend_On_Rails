@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 IMAGE_FILE = 'resources/Images/Web_Page_Wikipedia.png'
-API_KEY = 'AIzaSyBJ9sgvpgOkIZRDKk-sXbglwhzl-wsLsFc' # Don't forget to protect your API key.
+API_KEY = Rails.application.credentials.google_api_key # Don't forget to protect your API key.
 API_URL = "https://vision.googleapis.com/v1/images:annotate?key=#{API_KEY}"
 def test_Google_Cloud_Vision
   require 'base64'

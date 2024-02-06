@@ -7,7 +7,7 @@ require_relative '../app/Components/file_reader'
 
 class CodeGeneratorTest < Minitest::Test
   def setup
-    @openai_key = Config.new(type: "openai").load
+    @openai_key = Rails.application.credentials.openai_api_key
     @filepath = "resources/Images/Web_Page_Wikipedia.png"
     @code_generator=CodeGenerator.new(@openai_key,FileReader.new("test/OUT/Web_Page_Wikipedia/texts.json").read_data["description"])
   end
