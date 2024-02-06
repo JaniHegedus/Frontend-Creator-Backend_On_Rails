@@ -1,6 +1,5 @@
 require_relative '../models/code_generator'
 require_relative '../Components/file_reader'
-require_relative '../Components/config'
 
 class PageGenerationController < ApplicationController
   def initialize

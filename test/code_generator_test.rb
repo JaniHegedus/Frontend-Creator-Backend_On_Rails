@@ -3,7 +3,6 @@
 require 'minitest/autorun'
 
 require_relative '../app/models/code_generator'
-require_relative '../app/Components/config'
 require_relative '../app/Components/file_reader'
 
 class CodeGeneratorTest < Minitest::Test
