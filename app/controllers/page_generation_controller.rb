@@ -1,4 +1,4 @@
-require_relative '../models/Ai/code_generator'
+require_relative '../models/Ai/e_generator'
 require_relative '../Components/RW/e_reader'
 require_relative '../Components/config'
 
