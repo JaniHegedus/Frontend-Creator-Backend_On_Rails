@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require_relative '../models/Ai/reviewer'
+require_relative '../models/ai_reviewer'
 require_relative '../Components/config'
 
 class AiController < ApplicationController
