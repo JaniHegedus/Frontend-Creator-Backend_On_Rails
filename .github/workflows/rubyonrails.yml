@@ -6,45 +6,28 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:11
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: myapp_test
-        ports:
-          - 5432:5432
-        # Set health checks to wait until postgres has started
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
     - uses: actions/checkout@v2
 
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.2.2 # or the version you need
+        ruby-version: '3.0' # Specify your Ruby version here
 
     - name: Install dependencies
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
 
+    - name: Set execute permissions on Rails scripts
+      run: chmod +x bin/rails bin/rake
+
     - name: Set up database
-      env:
-        RAILS_ENV: test
-        RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       run: |
         bin/rails db:setup
+        bin/rails db:migrate
 
     - name: Run tests
-      env:
-        RAILS_ENV: test
-        RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-      run: |
-        bin/rails test
+      run: bin/rails test
+
+    # Optional: Add additional steps for linting, code analysis, etc.
