@@ -1,6 +1,6 @@
 require 'base64'
-require_relative './RW/file_writer'
-require_relative './RW/file_reader'
+require_relative 'file_writer'
+require_relative 'file_reader'
 class ImageProcessor
   def initialize(file_path)
     @file_path = file_path

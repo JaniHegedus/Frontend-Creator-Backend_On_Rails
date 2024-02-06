@@ -1,8 +1,8 @@
 require 'net/http'
 require 'json'
 
-require_relative '../Components/RW/file_reader'
-require_relative '../Components/RW/file_writer'
+require_relative '../Components/file_reader'
+require_relative '../Components/file_writer'
 require_relative '../Components/image_processor'
 
 #ImageAnnotatorClient = Google::Cloud::Vision::V1::ImageAnnotatorClient
