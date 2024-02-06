@@ -1,5 +1,5 @@
-require_relative '../models/Ai/e_generator'
-require_relative '../Components/RW/e_reader'
+require_relative '../models/code_generator'
+require_relative '../Components/file_reader'
 require_relative '../Components/config'
 
 class PageGenerationController < ApplicationController
