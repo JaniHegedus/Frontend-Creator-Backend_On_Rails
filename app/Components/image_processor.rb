@@ -1,6 +1,6 @@
 require 'base64'
-require_relative './File/file_writer'
-require_relative './File/file_reader'
+require_relative './RW/file_writer'
+require_relative './RW/file_reader'
 class ImageProcessor
   def initialize(file_path)
     @file_path = file_path
@@ -9,7 +9,7 @@ class ImageProcessor
   def extract_data_from_image
     # Convert the image to a base64 encoded string
     Base64.strict_encode64(File.open(@file_path, 'rb').read)
-    #puts Base64.strict_encode64(File.open("Images/Web_Page_Wikipedia.png", 'rb').read)
+    #puts Base64.strict_encode64(RW.open("Images/Web_Page_Wikipedia.png", 'rb').read)
   end
 
   def save_extracted_data(data)

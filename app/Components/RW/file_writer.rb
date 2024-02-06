@@ -24,7 +24,7 @@ class FileWriter
     # Ensure directory exists
 
 
-    raise "File creation failed!" unless File.exist?(@file_path)
+    raise "RW creation failed!" unless File.exist?(@file_path)
   end
   def write_data_append
     File.open(@file_path, 'a') do |file|
@@ -32,7 +32,7 @@ class FileWriter
     end
 
     File.read(@file_path)
-    raise "File creation failed!" unless File.exist?(@file_path)
+    raise "RW creation failed!" unless File.exist?(@file_path)
     puts @processname + @file_path
   end
 end

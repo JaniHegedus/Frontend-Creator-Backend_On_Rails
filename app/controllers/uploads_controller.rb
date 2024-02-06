@@ -16,7 +16,7 @@ class UploadsController < ApplicationController
 
     # You can add logic here to save file details in the database if needed
 
-    render json: { message: 'File uploaded successfully', filename: uploaded_file.original_filename }, status: :created
+    render json: { message: 'RW uploaded successfully', filename: uploaded_file.original_filename }, status: :created
   end
 
   private
