@@ -93,8 +93,8 @@ class CodeGenerator
         model: "gpt-4-vision-preview",
         max_tokens: 4096,
         messages: [
-          { role: "system", content: "Your system prompt here" }, # Replace with your system prompt
-          { role: "user", content: [{ type: "image_url", image_url: image_url }, "Turn this into a single html file using tailwind."] }
+          { role: "system", content: "You are a Image analyzer that helps other Ai generate a webpage." }, # Replace with your system prompt
+          { role: "user", content: [{ type: "image_url", image_url: image_url }, "Give back every possible description of this web page looking image, so i can generate a file with it."] }
         ]
       }
 
