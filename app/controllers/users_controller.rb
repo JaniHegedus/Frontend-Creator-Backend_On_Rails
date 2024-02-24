@@ -94,10 +94,18 @@ class UsersController < ApplicationController
       @current_user = User.find(@decoded[:user_id])
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :unauthorized
+    rescue JwtService::ExpiredToken => e
+      # Handle the case where the token has expired
+      render json: { errors: 'Token has expired. Please log in again.' }, status: :unauthorized
+    rescue JwtService::InvalidToken => e
+      # Handle the case where the token is invalid
+      render json: { errors: 'Token is invalid. Please log in again.' }, status: :unauthorized
     rescue JWT::DecodeError => e
+      # This will catch any other token decoding errors not specifically handled above
       render json: { errors: e.message }, status: :unauthorized
     end
   end
+
   def user_params
     params.require(:user).permit(:username, :email, :password, :password_confirmation)
   end

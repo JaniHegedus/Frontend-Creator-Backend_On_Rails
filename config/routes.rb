@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   post '/auth/github/callback', to: 'github_callbacks#create'
   post '/auth/github', to: 'github_callbacks#auth_github'
   post '/auth/github/remove', to: 'github_callbacks#remove_github'
+  post '/github/create_repo', to: 'github_callbacks#create_repo'
   # root "posts#index"
   post '/uploads', to: 'uploads#create'
   resources :uploads, only: [:create]

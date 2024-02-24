@@ -24,7 +24,6 @@ class GithubCallbacksController < ApplicationController
       render json: { error: 'Could not authenticate with GitHub.' }, status: :unprocessable_entity
     end
   end
-
   def auth_github
     # This assumes you have a way of identifying the current user (e.g., via a session or token)
     user = User.find_by(email: params[:email]) # or however you access the current user
@@ -68,7 +67,68 @@ class GithubCallbacksController < ApplicationController
     end
   end
 
-  private
+  def create_repo
+    access_token = request_to_github_for_token(params[:code])
+    unless access_token
+      return render json: { error: 'Error retrieving GitHub access token.' }, status: :bad_request
+    end
+
+    github_user_info = get_github_user_info(access_token)
+    unless github_user_info
+      return render json: { error: 'Error retrieving GitHub user info.' }, status: :bad_request
+    end
+
+    # Assuming params[:name] is passed correctly from the frontend
+    repo_name = params[:name]
+    response = create_github_repository(access_token, repo_name)
+
+    if response[:success]
+      render json: { message: 'Repository created successfully.', repo_details: response[:repo_details] }, status: :ok
+    else
+      render json: { error: response[:error] }, status: response[:status]
+    end
+  end
+
+  # Adjusted create_github_repository method
+  def create_github_repository(access_token, repo_name, options = {})
+    Rails.logger.debug { "Creating GitHub repository: #{repo_name} with options: #{options}" }
+
+    # Merge provided options with defaults for repository creation
+    options = {
+      name: repo_name,
+      auto_init: true, # Automatically initialize the repository with a README
+      # You can add other default options here as needed
+    }.merge(options)
+
+    response = Faraday.post('https://api.github.com/user/repos', options.to_json, {
+      'Authorization' => "Bearer #{access_token}",
+      'Accept' => 'application/vnd.github+json',
+      'Content-Type' => 'application/json'
+    })
+
+    case response.status
+    when 201
+      # Repository created successfully
+      { success: true, repo_details: JSON.parse(response.body) }
+    when 403
+      # Forbidden - the token does not have the right permissions or the resource is not accessible
+      { success: false, error: "Forbidden - the token does not have the right permissions or the resource is not accessible", status: :forbidden }
+    when 422
+      # Unprocessable Entity - the request was well-formed but unable to be followed due to semantic errors
+      { success: false, error: "Unprocessable Entity - the request was well-formed but unable to be followed due to semantic errors", status: :unprocessable_entity }
+    else
+      # Log detailed error information from GitHub
+      Rails.logger.error { "Error creating GitHub repository: Status: #{response.status}, Response: #{response.body}" }
+      { success: false, error: "Error creating GitHub repository: Status: #{response.status}, Response: #{response.body}", status: :internal_server_error }
+    end
+  rescue Faraday::Error => e
+    # Log any exceptions raised during the HTTP request to GitHub
+    Rails.logger.error { "Faraday exception in create_github_repository: #{e.message}" }
+    { success: false, error: "Exception while creating GitHub repository: #{e.message}", status: :internal_server_error }
+  end
+
+
+
 
   def get_github_repositories(access_token)
     response = Faraday.get('https://api.github.com/user/repos', {}, {
