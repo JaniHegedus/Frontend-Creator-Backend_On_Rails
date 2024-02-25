@@ -5,12 +5,6 @@ require_relative '../Components/file_reader'
 require_relative '../Components/file_writer'
 require_relative '../Components/image_processor'
 
-#ImageAnnotatorClient = Google::Cloud::Vision::V1::ImageAnnotatorClient
-#IMAGE_FILE = 'resources/Images/Web_Page_Wikipedia.png'
-# Step 2 - Convert the image to base64 format.
-#base64_image = Base64.strict_encode64(RW.new(IMAGE_FILE, 'rb').read)
-#API_KEY = 'AIzaSyBJ9sgvpgOkIZRDKk-sXbglwhzl-wsLsFc' # Don't forget to protect your API key.
-
 
 class AiReviewer
   def initialize(api_key, filepath, result_type:)
