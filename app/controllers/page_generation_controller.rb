@@ -5,16 +5,29 @@ class PageGenerationController < ApplicationController
   def initialize
 
     @openai_api_key = Rails.application.credentials.openai_api_key
-    filename_without_extension = File.basename("resources/Images/Web_Page_Wikipedia.png", ".*")
-    @output_path_labels = File.expand_path("resources/OUT/#{filename_without_extension}/labels.json")
-    @output_path_texts = File.expand_path("resources/OUT/#{filename_without_extension}/texts.json")
-    @output_path_colors = File.expand_path("resources/OUT/#{filename_without_extension}/colors.json")
-    @filepath = "resources/Images/Web_Page_Wikipedia.png"
-    @code_generator = CodeGenerator.new(@openai_api_key, "Texts: "+FileReader.new(@output_path_texts).read_data["description"].to_s+"Dominant colors: "+FileReader.new(@output_path_colors).read_data["dominantColors"].to_s)
+    #filename_without_extension = File.basename("resources/Images/Web_Page_Wikipedia.png", ".*")
+    #@output_path_labels = File.expand_path("resources/OUT/#{filename_without_extension}/labels.json")
+    #@output_path_texts = File.expand_path("resources/OUT/#{filename_without_extension}/texts.json")
+    #@output_path_colors = File.expand_path("resources/OUT/#{filename_without_extension}/colors.json")
+    #@filepath = "resources/Images/Web_Page_Wikipedia.png"
+    #@code_generator = CodeGenerator.new(@openai_api_key, "Texts: "+FileReader.new(@output_path_texts).read_data["description"].to_s+"Dominant colors: "+FileReader.new(@output_path_colors).read_data["dominantColors"].to_s)
     super
   end
+  def create
+    project = params[:Project] ? JSON.parse(params[:Project]) : {}
+    pages = params[:Pages].to_i
+    images = params[:Images] ? JSON.parse(params[:Images]) : {}
+    languages = params[:Languages] ? JSON.parse(params[:Languages]) : {}
+    username = params[:username]
+
+    # Code to save your generation data to your database...
+
+    render json: { status: 'success', message: 'Generation created successfully' }, status: :ok
+  rescue => e
+    render json: { status: 'error', message: e.message }, status: :unprocessable_entity
+  end
   def generate_page
-    @code_generator.save_generated_code(@filepath)
-    render json: @code_generator.get_response
+    #@code_generator.save_generated_code(@filepath)
+    #render json: @code_generator.get_response
   end
 end
