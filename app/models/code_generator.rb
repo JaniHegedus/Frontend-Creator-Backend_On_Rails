@@ -81,45 +81,7 @@ class CodeGenerator
     puts html_path+"\n"+css_path+" Paths"
     #puts "@code is: #{@code.inspect}"
   end
-  def make_request_with_image
-    begin
-      uri = URI('https://api.openai.com/v1/chat/completions')
-      header = {
-        'Content-Type' => 'application/json',
-        'Authorization' => "Bearer #{@api_key}" # Ensure @api_key is set properly
-      }
 
-      body = {
-        model: "gpt-4-vision-preview",
-        max_tokens: 4096,
-        messages: [
-          { role: "system", content: "You are a Image analyzer that helps other Ai generate a webpage." }, # Replace with your system prompt
-          { role: "user", content: [{ type: "image_url", image_url: image_url }, "Give back every possible description of this web page looking image, so i can generate a file with it."] }
-        ]
-      }
-
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
-      request = Net::HTTP::Post.new(uri, header)
-      request.body = body.to_json
-
-      response = http.request(request)
-
-      if response.is_a?(Net::HTTPSuccess)
-        json_response = JSON.parse(response.body)
-        # Process your response here
-        json_response # Returning the parsed JSON response
-      else
-        raise "HTTP Error: #{response.code} #{response.message}"
-      end
-    rescue Net::HTTPTooManyRequests => e
-      # Handle retries and exponential backoff
-    rescue JSON::ParserError => e
-      raise "JSON Parsing Error: #{e.message}"
-    rescue Net::HTTPFatalError => e
-      raise "HTTP Fatal Error: #{e.message}"
-    end
-  end
   def get_response
     @response.body
   end

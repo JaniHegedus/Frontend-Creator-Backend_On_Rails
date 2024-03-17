@@ -1,28 +1,24 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F2F2F2;
+}
+
 .review {
-    border: 1px solid black;
-    padding: 20px;
-    width: 300px;
+    margin: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 10px #BBBBBB;
 }
 
-.review-text {
-    margin-bottom: 20px;
+#description {
+    color: #333333;
+    margin: 0;
 }
 
-.dominant-colors {
-    display: flex;
+#dominantColors {
+    color: #666666;
+    margin: 0;
 }
-
-.color-box {
-    height: 30px;
-    width: 30px;
-    margin-right: 10px;
-}
-
-#color1 {
-    background-color: #ff0000; /* Replace with real color data */
-}
-
-#color2 {
-    background-color: #0000ff; /* Replace with real color data */
-}
-/* Add more color boxes styles as needed */

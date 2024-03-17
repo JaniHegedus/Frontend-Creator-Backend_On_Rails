@@ -58,23 +58,23 @@
             "boundingPoly": {
               "vertices": [
                 {
-                  "x": 160
+                  "x": 240
                 },
                 {
-                  "x": 646
+                  "x": 604
                 },
                 {
-                  "x": 646,
+                  "x": 604,
                   "y": 485
                 },
                 {
-                  "x": 160,
+                  "x": 240,
                   "y": 485
                 }
               ]
             },
-            "confidence": 0.625,
-            "importanceFraction": 0.9257143
+            "confidence": 0.78125006,
+            "importanceFraction": 0.56076926
           }
         ]
       }

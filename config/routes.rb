@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get '/test/aiImageTest/colors', to: 'ai#colors'
 
   #PageGen
-  get '/test/PageGenerationTest', to: 'page_generation#generate_page'
+  get '/test/PageGenerationTest', to: 'generation_controller_old#generate_page'
 
   # Sessions
   post 'login', to: 'sessions#create'
