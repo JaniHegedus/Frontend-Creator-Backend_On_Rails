@@ -12,7 +12,7 @@ class PageGenByImage
 
   def generate
     @images.each do |image|
-      puts "Generating image #{image}"
+      puts "Generating image #{image}" #Theese are not yet good these are the whole array not just the filepaths but the names too
       make_request_with_image(image)
     end
   end
