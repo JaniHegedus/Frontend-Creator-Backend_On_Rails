@@ -1,7 +1,10 @@
 # frozen_string_literal: true
+require 'net/http'
+require 'uri'
+require 'json'
 
 class PageGenByImage
-  def initialize(api_key,project="", pages=1,images,languages={},username)
+  def initialize(api_key:, images:, username:, project: "", pages: 1, languages: {})
     @api_key = api_key
     @pages = pages
     @project = project
