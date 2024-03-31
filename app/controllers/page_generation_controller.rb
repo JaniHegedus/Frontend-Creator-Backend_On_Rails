@@ -19,6 +19,7 @@ class PageGenerationController < ApplicationController
       pages: pages,
       languages: languages
     )
+    @page_gen.generate
     render json: { status: 'success', message: 'Generation created successfully' }, status: :ok
   rescue => e
     render json: { status: 'error', message: e.message }, status: :unprocessable_entity

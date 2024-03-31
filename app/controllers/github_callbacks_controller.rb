@@ -1,5 +1,6 @@
 require 'faraday'
 require 'jwt'
+require 'octokit'
 
 class GithubCallbacksController < ApplicationController
   def create
@@ -89,6 +90,70 @@ class GithubCallbacksController < ApplicationController
     end
   end
 
+  def push_to_github
+    project_name = params[:name]
+    code = params[:code]
+
+    # Ensure required parameters are present
+    if project_name.blank? || code.blank?
+      return render json: { error: 'Missing required parameters.' }, status: :bad_request
+    end
+
+    # Attempt to retrieve the GitHub access token using the provided code
+    access_token = request_to_github_for_token(code)
+    return render json: { error: 'Error retrieving GitHub access token.' }, status: :bad_request unless access_token
+
+    # Fetch GitHub user info using the access token
+    github_user_info = get_github_user_info(access_token)
+    return render json: { error: 'Error retrieving GitHub user info.' }, status: :bad_request unless github_user_info
+
+    # Find the local user by their GitHub ID
+    user = User.find_by(github_uid: github_user_info['id'])
+    return render json: { error: 'User not found.' }, status: :not_found unless user
+
+    # Initialize the Octokit client with the retrieved access token
+    client = Octokit::Client.new(access_token: access_token)
+
+    # Construct the full repository name
+    repo_full_name = "#{user.github_nickname}/#{project_name}"
+
+    # Check if the repository already exists
+    repo_exists = client.repository?(repo_full_name) rescue false
+
+    unless repo_exists
+      # Create the repository if it doesn't exist
+      begin
+        client.create_repository(project_name.to_s, auto_init: true)
+      rescue Octokit::Error => e
+        return render json: { error: 'Failed to create GitHub repository.', message: e.message }, status: :unprocessable_entity
+      end
+    end
+
+    # Construct the local path to the project directory
+    project_path = Rails.root.join('storage', user.username, 'Projects', project_name)
+
+    unless Dir.exist?(project_path)
+      return render json: { error: 'Project directory does not exist.' }, status: :bad_request
+    end
+
+    # Navigate to the project directory and push the project to GitHub
+    Dir.chdir(project_path) do
+      system('git init')
+      system('git add .')
+      system('git commit -m "Initial commit"')
+      system('git branch -M main')
+      system("git remote add origin https://github.com/#{repo_full_name}.git")
+      system('git push -u origin main --force')
+    end
+
+    # Respond with success
+    message = repo_exists ? 'Project updated on GitHub successfully.' : 'Project published to GitHub successfully.'
+    render json: { message: message, repo_url: "https://github.com/#{repo_full_name}" }
+  rescue => e
+    render json: { error: 'An error occurred while pushing to GitHub.', message: e.message }, status: :internal_server_error
+  end
+
+  private
   # Adjusted create_github_repository method
   def create_github_repository(access_token, repo_name, options = {})
     Rails.logger.debug { "Creating GitHub repository: #{repo_name} with options: #{options}" }

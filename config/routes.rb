@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   post '/auth/github', to: 'github_callbacks#auth_github'
   post '/auth/github/remove', to: 'github_callbacks#remove_github'
   post '/github/create_repo', to: 'github_callbacks#create_repo'
+  post '/github/publish_repo', to: 'github_callbacks#push_to_github'
   # root "posts#index"
   # Uploads
 
@@ -52,4 +53,10 @@ Rails.application.routes.draw do
   post '/generation', to: 'page_generation#create'
 
   get '/user_files/:username', to: 'user_files#index'
+  get '/user_file', to: 'user_files#return_a_file'
+
+  post '/user_file_update', to: 'user_files#update'
+
+  get '/download_project', to: 'user_files#download'
+
 end
