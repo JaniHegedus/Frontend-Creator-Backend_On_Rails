@@ -32,7 +32,7 @@ module FileGenerationService
 
     # Handle programming languages
     case programming_lang
-    when 'html'
+    when 'html', 'html+javascript', 'html+typescript'
       paths['index.html'] = programming_lang
     when 'react_jsx'
       paths['App.js'] = programming_lang
@@ -58,19 +58,19 @@ module FileGenerationService
   def self.extract_content_for_language(content, lang)
     case lang
     when 'html', 'html+javascript', 'html+typescript'
-      content.match(/```html(.*)```/m)[1].strip if content.include?('```html')
+      content.match(/```html\n(.+?)```/m)[1].strip if content.include?('```html')
     when 'javascript'
-      content.match(/```javascript(.*)```/m)[1].strip if content.include?('```javascript')
+      content.match(/```javascript\n(.+?)```/m)[1].strip if content.include?('```javascript')
     when 'typescript'
-      content.match(/```typescript(.*)```/m)[1].strip if content.include?('```typescript')
+      content.match(/```typescript\n(.+?)```/m)[1].strip if content.include?('```typescript')
     when 'react_jsx', 'react_tsx'
-      content.match(/```jsx(.*)```/m)[1].strip if content.include?('```jsx') # Assuming JSX block for simplicity
+      content.match(/```jsx\n(.+?)```/m)[1].strip if content.include?('```jsx') # Assuming JSX block for simplicity
     when 'css'
-      content.match(/```css(.*)```/m)[1].strip if content.include?('```css')
+      content.match(/```css\n(.+?)```/m)[1].strip if content.include?('```css')
     when 'sass'
-      content.match(/```sass(.*)```/m)[1].strip if content.include?('```sass')
+      content.match(/```sass\n(.+?)```/m)[1].strip if content.include?('```sass')
     when 'tailwindcss'
-      content.match(/```css(.*)```/m)[1].strip if content.include?('```css') # Tailwind CSS goes in a CSS file
+      content.match(/```css\n(.+?)```/m)[1].strip if content.include?('```css') # Tailwind CSS goes in a CSS file
     else
       nil
     end
