@@ -28,7 +28,7 @@ class GenerationTest < Minitest::Test
 
   def test_file_generation
     FileGenerationService.generate_files(@project_location, @response["choices"][0]["message"]["content"], @languages)
-    react_jsx_exists = File.exist?(File.join(@project_location, 'App.js'))
+    react_jsx_exists = File.exist?(File.join(@project_location, 'App.jsx'))
     tailwind_css_exists = File.exist?(File.join(@project_location, 'tailwind.css'))
 
     assert(react_jsx_exists, "The React JSX file was not created.")
