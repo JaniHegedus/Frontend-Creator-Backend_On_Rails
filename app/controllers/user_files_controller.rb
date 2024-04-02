@@ -1,4 +1,5 @@
 require 'zip'
+require 'fileutils'
 class UserFilesController < ApplicationController
 
   def index
@@ -56,6 +57,31 @@ class UserFilesController < ApplicationController
     else
       render json: { error: 'File not found or is a directory '+local_path }, status: :not_found
     end
+  end
+  def user_directory_update
+    # Attempt to find the user based on the username provided
+    user = User.find_by(username: params[:username])
+
+    if user
+      # Assuming your user's directory is stored in a format like 'storage/USERNAME'
+      old_directory_path = "storage/#{params[:username]}"
+      new_directory_path = "storage/#{params[:new_directory]}"
+
+      # Check if the old directory exists and the new directory does not exist to prevent overwriting
+      if File.directory?(old_directory_path) && !File.directory?(new_directory_path)
+        # Use FileUtils to rename the directory
+        FileUtils.mv(old_directory_path, new_directory_path)
+
+        render json: { success: "Directory renamed successfully." }, status: :ok
+      else
+        render json: { error: "Directory cannot be renamed. It might not exist or the new directory name is already in use." }, status: :unprocessable_entity
+      end
+    else
+      render json: { error: "User not found." }, status: :not_found
+    end
+  rescue StandardError => e
+    # Catch and return any errors encountered during the process
+    render json: { error: "An error occurred: #{e.message}" }, status: :internal_server_error
   end
   def download
     username = params[:username]

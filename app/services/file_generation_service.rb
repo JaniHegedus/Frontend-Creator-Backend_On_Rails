@@ -32,10 +32,14 @@ module FileGenerationService
 
     # Handle programming languages
     case programming_lang
-    when 'html', 'html+javascript', 'html+typescript'
+    when 'html'
       paths['index.html'] = programming_lang
+    when 'html+javascript'
+      paths['index.html'] = programming_lang #Need to find a way to separate javascript file
+    when 'html+typescript'
+      paths['index.html'] = programming_lang #Need to find a way to separate typescript file
     when 'react_jsx'
-      paths['App.js'] = programming_lang
+      paths['App.jsx'] = programming_lang
     when 'react_tsx'
       paths['App.tsx'] = programming_lang
       # Add more programming languages as needed
@@ -59,12 +63,12 @@ module FileGenerationService
     case lang
     when 'html', 'html+javascript', 'html+typescript'
       content.match(/```html\n(.+?)```/m)[1].strip if content.include?('```html')
-    when 'javascript'
-      content.match(/```javascript\n(.+?)```/m)[1].strip if content.include?('```javascript')
-    when 'typescript'
       content.match(/```typescript\n(.+?)```/m)[1].strip if content.include?('```typescript')
-    when 'react_jsx', 'react_tsx'
-      content.match(/```jsx\n(.+?)```/m)[1].strip if content.include?('```jsx') # Assuming JSX block for simplicity
+      content.match(/```javascript\n(.+?)```/m)[1].strip if content.include?('```javascript')
+    when 'react_jsx'
+      content.match(/```jsx\n(.+?)```/m)[1].strip if content.include?('```jsx')
+    when 'react_tsx'
+      content.match(/```tsx\n(.+?)```/m)[1].strip if content.include?('```jsx')
     when 'css'
       content.match(/```css\n(.+?)```/m)[1].strip if content.include?('```css')
     when 'sass'
