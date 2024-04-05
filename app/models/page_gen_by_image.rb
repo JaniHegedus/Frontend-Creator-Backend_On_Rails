@@ -62,7 +62,7 @@ class PageGenByImage
         model: "gpt-4-vision-preview",
         max_tokens: 4096,
         messages: [
-          { role: "system", content: "You are an Image to Website code generator for a webpage." },
+          { role: "system", content: "You are an Image to Website code generator for a webpage, if you receive html+javascript or html+typescript request include the script in the html file." },
           { role: "user",
             content: [
               { type: "text", text: "Please generate website code."},

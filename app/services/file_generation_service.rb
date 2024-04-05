@@ -8,7 +8,8 @@ module FileGenerationService
     puts project_location, response, languages
     file_paths = generate_file_paths(languages)
     FileUtils.mkdir_p(project_location) unless Dir.exist?(project_location)
-
+    message_path = File.join(project_location, "Ai Response.txt")
+    File.write(message_path, response)
     file_paths.each do |file_name, lang|
       file_content = extract_content_for_language(response, lang)
       next if file_content.nil? || file_content.empty?
@@ -32,11 +33,7 @@ module FileGenerationService
 
     # Handle programming languages
     case programming_lang
-    when 'html'
-      paths['index.html'] = programming_lang
-    when 'html+javascript'
-      paths['index.html'] = programming_lang #Need to find a way to separate javascript file
-    when 'html+typescript'
+    when 'html', 'html+typescript', 'html+javascript'
       paths['index.html'] = programming_lang #Need to find a way to separate typescript file
     when 'react_jsx'
       paths['App.jsx'] = programming_lang
@@ -63,8 +60,6 @@ module FileGenerationService
     case lang
     when 'html', 'html+javascript', 'html+typescript'
       content.match(/```html\n(.+?)```/m)[1].strip if content.include?('```html')
-      content.match(/```typescript\n(.+?)```/m)[1].strip if content.include?('```typescript')
-      content.match(/```javascript\n(.+?)```/m)[1].strip if content.include?('```javascript')
     when 'react_jsx'
       content.match(/```jsx\n(.+?)```/m)[1].strip if content.include?('```jsx')
     when 'react_tsx'
