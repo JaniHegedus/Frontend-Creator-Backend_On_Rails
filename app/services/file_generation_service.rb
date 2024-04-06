@@ -8,8 +8,9 @@ module FileGenerationService
     puts project_location, response, languages
     file_paths = generate_file_paths(languages)
     FileUtils.mkdir_p(project_location) unless Dir.exist?(project_location)
-    message_path = File.join(project_location, "Ai Response.txt")
+    message_path = File.join(project_location, "Ai_Response.txt")
     File.write(message_path, response)
+    puts "Generated file: #{message_path}"
     file_paths.each do |file_name, lang|
       file_content = extract_content_for_language(response, lang)
       next if file_content.nil? || file_content.empty?
@@ -40,6 +41,8 @@ module FileGenerationService
     when 'react_tsx'
       paths['App.tsx'] = programming_lang
       # Add more programming languages as needed
+    else
+      nil
     end
 
     # Handle style languages
@@ -51,6 +54,8 @@ module FileGenerationService
     when 'tailwindcss'
       paths['tailwind.css'] = style_lang
       # Add more style languages as needed
+    else
+      nil
     end
 
     paths
