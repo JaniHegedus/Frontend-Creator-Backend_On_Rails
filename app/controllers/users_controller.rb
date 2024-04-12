@@ -48,7 +48,6 @@ class UsersController < ApplicationController
     if user
       new_password = SecureRandom.hex(8) # Generates a 16-character hex string
       user.password = new_password
-      user.password_confirmation = new_password
 
       if user.save
         # Assuming UserMailer is set up to handle password reset emails

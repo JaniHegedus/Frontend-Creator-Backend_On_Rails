@@ -36,6 +36,8 @@ module FileGenerationService
     case programming_lang
     when 'html', 'html+typescript', 'html+javascript'
       paths['index.html'] = programming_lang #Need to find a way to separate typescript file
+    when 'php'
+      paths['index.php'] = programming_lang
     when 'react_jsx'
       paths['App.jsx'] = programming_lang
     when 'react_tsx'
@@ -65,6 +67,8 @@ module FileGenerationService
     case lang
     when 'html', 'html+javascript', 'html+typescript'
       content.match(/```html\n(.+?)```/m)[1].strip if content.include?('```html')
+    when 'php'
+      content.match(/```php\n(.+?)```/m)[1].strip if content.include?('```php')
     when 'react_jsx'
       content.match(/```jsx\n(.+?)```/m)[1].strip if content.include?('```jsx')
     when 'react_tsx'
