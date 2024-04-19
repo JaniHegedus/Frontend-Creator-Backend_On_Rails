@@ -83,7 +83,7 @@ class UserFilesController < ApplicationController
     # Catch and return any errors encountered during the process
     render json: { error: "An error occurred: #{e.message}" }, status: :internal_server_error
   end
-  def download
+  def download_project
     username = params[:username]
     project_name = params[:projectName]
 
@@ -118,7 +118,98 @@ class UserFilesController < ApplicationController
       File.delete(zipfile_name) if File.exist?(zipfile_name)
     end
   end
+  def download_file
+    username = params[:username]
+    file_name = params[:filename]
 
+    if username.blank? || file_name.blank?
+      render json: { error: 'Invalid parameters' }, status: :bad_request
+      return
+    end
+    file_path = Rails.root.join('storage', username, file_name)
+    puts file_path
+    content_type = Mime::Type.lookup_by_extension(File.extname(file_path).delete('.')).to_s
+    content_type = 'application/octet-stream' if content_type.blank? # Fallback if MIME type is not found
+
+    unless File.exist?(file_path) && File.file?(file_path)
+      render json: { error: 'File not found' }, status: :not_found
+      return
+    end
+    puts file_name
+    send_file(file_path, type: content_type, disposition: 'attachment', filename: "#{file_name}")
+  rescue => e
+    logger.error "Error downloading file: #{e.message}"
+    render json: { error: 'An unexpected error occurred' }, status: :internal_server_error
+  end
+  def download_directory
+    username = params[:username]
+    directory_name = params[:filename]
+
+    # Check if the parameters are not present or trying to traverse directories
+    if username.blank? || directory_name.blank? || username.include?("..") || directory_name.include?("..")
+      render json: { error: 'Invalid parameters' }, status: :bad_request
+      return
+    end
+
+    project_directory = Rails.root.join('storage', username, directory_name)
+
+    # Check if the project directory exists
+    unless Dir.exist?(project_directory)
+      render json: { error: 'Project not found' }, status: :not_found
+      return
+    end
+
+    zipfile_name = Rails.root.join('storage', username, "#{directory_name}.zip")
+
+    Zip::File.open(zipfile_name, create: true) do |zipfile|
+      Dir[File.join(project_directory, '**', '**')].each do |file|
+        zipfile.add(file.sub(project_directory.to_s + '/', ''), file)
+      end
+    end
+
+    # Stream the zip file back to the client
+    send_file(zipfile_name, type: 'application/zip', disposition: 'attachment', filename: "#{directory_name}.zip")
+
+    # Optional: Remove the zip file after sending it
+    Thread.new do
+      sleep(1) # Sleep for 10 seconds
+      File.delete(zipfile_name) if File.exist?(zipfile_name)
+    end
+  end
+  def download
+    username = params[:username]
+
+    # Check if the parameters are not present or trying to traverse directories
+    if username.blank?|| username.include?("..")
+      render json: { error: 'Invalid parameters' }, status: :bad_request
+      return
+    end
+
+    project_directory = Rails.root.join('storage', username)
+
+    # Check if the project directory exists
+    unless Dir.exist?(project_directory)
+      render json: { error: 'Project not found' }, status: :not_found
+      return
+    end
+
+    zipfile_name = Rails.root.join('storage', username, "#{username}.zip")
+
+    Zip::File.open(zipfile_name, create: true) do |zipfile|
+      Dir[File.join(project_directory, '**', '**')].each do |file|
+        zipfile.add(file.sub(project_directory.to_s + '/', ''), file)
+      end
+    end
+
+    # Stream the zip file back to the client
+    send_file(zipfile_name, type: 'application/zip', disposition: 'attachment', filename: "#{username}.zip")
+
+    # Optional: Remove the zip file after sending it
+    Thread.new do
+      sleep(1) # Sleep for 10 seconds
+      File.delete(zipfile_name) if File.exist?(zipfile_name)
+    end
+  end
   private
   def list_files(path)
     Dir.children(path).map do |entry|

@@ -57,6 +57,9 @@ Rails.application.routes.draw do
 
   post '/user_file_update', to: 'user_files#update'
 
-  get '/download_project', to: 'user_files#download'
+  get '/download_project', to: 'user_files#download_project'
+  get '/download_directory', to: 'user_files#download_directory'
+  get '/download_file', to: 'user_files#download_file'
+  get '/download', to: 'user_files#download'
   post '/user_file/modify_storage', to: 'user_files#user_directory_update'
 end
