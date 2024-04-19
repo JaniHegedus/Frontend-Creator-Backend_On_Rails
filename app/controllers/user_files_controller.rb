@@ -1,7 +1,23 @@
 require 'zip'
 require 'fileutils'
 class UserFilesController < ApplicationController
+  before_action :authenticate_request!
+  def create
+    uploaded_file = params[:file]
+    username = params[:username]
+    user_directory = Rails.root.join('storage', username.to_s)
+    FileUtils.mkdir_p(user_directory) unless Dir.exist?(user_directory)
 
+    file_path = user_directory.join(uploaded_file.original_filename)
+
+    File.open(file_path, 'wb') do |file|
+      file.write(uploaded_file.read)
+    end
+
+    # You can add logic here to save file details in the database if needed
+
+    render json: { message: 'RW uploaded successfully', filename: uploaded_file.original_filename }, status: :created
+  end
   def index
     user_directory = Rails.root.join('storage', params[:username])
     if Dir.exist?(user_directory)
@@ -219,6 +235,27 @@ class UserFilesController < ApplicationController
       else
         { type: 'file', name: entry }
       end
+    end
+  end
+
+  def authenticate_request!
+    header = request.headers['Authorization']
+    header = header.split(' ').last if header
+
+    begin
+      @decoded = JwtService.decode(header)
+      @current_user = User.find(@decoded[:user_id])
+    rescue ActiveRecord::RecordNotFound => e
+      render json: { errors: e.message }, status: :unauthorized
+    rescue JwtService::ExpiredToken => e
+      # Handle the case where the token has expired
+      render json: { errors: 'Token has expired. Please log in again.' }, status: :unauthorized
+    rescue JwtService::InvalidToken => e
+      # Handle the case where the token is invalid
+      render json: { errors: 'Token is invalid. Please log in again.' }, status: :unauthorized
+    rescue JWT::DecodeError => e
+      # This will catch any other token decoding errors not specifically handled above
+      render json: { errors: e.message }, status: :unauthorized
     end
   end
 end

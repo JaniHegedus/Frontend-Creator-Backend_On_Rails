@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   # Define a route to get user details
   get '/user/:id', to: 'users#show'
   get '/userinfo', to: 'users#userinfo'
+  get '/token', to: 'users#isvalid'
   # Defines the root path route ("/")
   patch '/user/modify', to: 'users#modify_userinfo' # For partial updates
   delete '/user/delete', to: 'users#destroy'
@@ -45,18 +46,13 @@ Rails.application.routes.draw do
   post '/github/create_repo', to: 'github_callbacks#create_repo'
   post '/github/publish_repo', to: 'github_callbacks#push_to_github'
   # root "posts#index"
-  # Uploads
-
-  resources :uploads, only: [:create]
-  post '/uploads', to: 'uploads#create'
   #Generation
   post '/generation', to: 'page_generation#create'
 
+  post '/uploads', to: 'user_files#create'
   get '/user_files/:username', to: 'user_files#index'
   get '/user_file', to: 'user_files#return_a_file'
-
   post '/user_file_update', to: 'user_files#update'
-
   get '/download_project', to: 'user_files#download_project'
   get '/download_directory', to: 'user_files#download_directory'
   get '/download_file', to: 'user_files#download_file'

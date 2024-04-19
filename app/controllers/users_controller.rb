@@ -28,6 +28,9 @@ class UsersController < ApplicationController
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
   end
+  def isvalid
+    puts "Validating user"
+  end
   def modify_userinfo
 
     # Update user information, password will be automatically hashed by has_secure_password
