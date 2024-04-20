@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   post '/generation', to: 'page_generation#create'
 
   post '/uploads', to: 'user_files#create'
+  get 'user_f', to: 'user_files#check_directory'
   get '/user_files/:username', to: 'user_files#index'
   get '/user_file', to: 'user_files#return_a_file'
   post '/user_file_update', to: 'user_files#update'

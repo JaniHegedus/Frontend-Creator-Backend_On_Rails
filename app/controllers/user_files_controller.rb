@@ -26,7 +26,19 @@ class UserFilesController < ApplicationController
       render json: { error: 'User files not found' }, status: :not_found
     end
   end
+  def check_directory
+    username = params[:username]
+    user_directory = Rails.root.join('storage', username)
 
+    # Check if the directory exists and is not empty
+    directory_exists = Dir.exist?(user_directory) && !Dir.children(user_directory).empty?
+
+    if directory_exists
+      render json: { exists: true }
+    else
+      render json: { exists: false }
+    end
+  end
   def return_a_file
     path = params[:file_path].to_s
 
