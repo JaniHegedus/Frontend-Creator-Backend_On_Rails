@@ -72,7 +72,7 @@ module FileGenerationService
     when 'react_jsx'
       content.match(/```jsx\n(.+?)```/m)[1].strip if content.include?('```jsx')
     when 'react_tsx'
-      content.match(/```tsx\n(.+?)```/m)[1].strip if content.include?('```jsx')
+      content.match(/```tsx\n(.+?)```/m)[1].strip if content.include?('```tsx')
     when 'css'
       content.match(/```css\n(.+?)```/m)[1].strip if content.include?('```css')
     when 'sass'
