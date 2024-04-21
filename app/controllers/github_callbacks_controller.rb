@@ -7,6 +7,8 @@ class GithubCallbacksController < ApplicationController
     # Exchange the code for a GitHub access token
     access_token = request_to_github_for_token(params[:code])
     github_user_info = get_github_user_info(access_token)
+    github_user_info['email'] = get_github_email(access_token)
+    puts github_user_info
     github_repos = get_github_repositories(access_token)
 
     # Find or create a user from the GitHub data
@@ -245,5 +247,35 @@ class GithubCallbacksController < ApplicationController
       { error: 'Error retrieving GitHub user info.', status: :bad_request }
     end
   end
+  def get_github_email(access_token)
+    response = Faraday.get('https://api.github.com/user/emails', {}, {
+      'Authorization' => "token #{access_token}",
+      'Accept' => 'application/json'
+    })
 
+    # Parse the JSON response
+    begin
+      emails = JSON.parse(response.body)
+      puts emails
+    rescue JSON::ParserError => e
+      puts "Failed to parse JSON: #{e.message}"
+      return nil
+    end
+
+    # Check if the response is as expected
+    unless emails.is_a?(Array)
+      puts "Unexpected response format: #{emails.inspect}"
+      return nil
+    end
+    # Find the primary email address that is also private
+    primary_private_email = emails.find { |email| email['primary'] == true }
+
+    if primary_private_email
+      puts "Primary private email: #{primary_private_email['email']}"
+      primary_private_email['email']
+    else
+      puts "No primary private email found."
+      nil
+    end
+  end
 end
