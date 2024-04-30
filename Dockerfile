@@ -4,7 +4,7 @@
 FROM ruby:3.2.2-slim as base
 
 # Environment variables for Rails to run in production
-ENV RAILS_ENV=production \
+ENV RAILS_ENV=development \
     BUNDLE_DEPLOYMENT=1 \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development test" \
@@ -59,14 +59,17 @@ RUN useradd -m -s /bin/bash rails && chown -R rails:rails /rails
 USER rails
 
 # Copy and set permissions for the entrypoint script
-COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
-RUN chmod +x /usr/bin/docker-entrypoint.sh
+COPY bin/docker-entrypoint /rails/bin/docker-entrypoint.sh
+USER root
+RUN chown rails /rails/bin/docker-entrypoint.sh
+USER rails
+RUN chmod +x /rails/bin/docker-entrypoint.sh
 
 # Set the entrypoint script to run on container start
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Expose port 3000 for the Rails server
-EXPOSE 3000
+EXPOSE 3001
 
 # Start the Rails server by default
 CMD ["./bin/rails", "server"]

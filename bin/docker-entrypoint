@@ -8,7 +8,7 @@ fi
 # Check if the master.key exists, if not generate one
 if [ ! -f "config/master.key" ]; then
   echo "Master key not found, generating one..."
-  EDITOR="echo \$RANDOM" bin/rails credentials:edit
+  EDITOR="true" bin/rails credentials:edit
 fi
 
 # Database migrations

@@ -6,7 +6,7 @@ require 'rack/cors'
 # Read more: https://github.com/cyu/rack-cors
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'localhost:3000', '127.0.0.1:3000', 'janihegedus.ddns.net:3000', 'janihegedus.ddns.net:3001' # Include any other origins you want to allow
+    origins 'localhost:3000', '127.0.0.1:3000', 'janihegedus.ddns.net', 'janihegedus.ddns.net:3000','www.frontend-creator.hu','www.frontend-creator.hu:3001', 'janihegedus.ddns.net:3001' # Include any other origins you want to allow
     resource '*',
              headers: :any,
              methods: [:get, :post, :put, :patch, :delete, :options, :head],

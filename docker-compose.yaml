@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3001 -b '0.0.0.0'"
+    volumes:
+      - .:/rails
+      - rails_cache:/rails/tmp/cache
+    ports:
+      - "3001:3001"
+
+volumes:
+  rails_cache:
+    driver: local
