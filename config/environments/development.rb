@@ -2,8 +2,9 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  Rails.application.config.hosts << "janihegedus.ddns.net"
   Rails.application.config.hosts << "www.frontend-creator.hu"
+  Rails.application.config.hosts << "arch.local"
+  Rails.application.config.hosts << "backend.frontend-creator.mywire.org"
 
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
