@@ -12,7 +12,7 @@ gem "sqlite3", "~> 1.4"
 gem "puma", ">= 5.0"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
-gem 'rack-cors', "~> 2.0.1"
+gem 'rack-cors', "~> 2.0.2"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
